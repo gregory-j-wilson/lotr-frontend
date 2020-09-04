@@ -9,19 +9,23 @@ function Characters() {
     axios
         .get('https://lotrdata.herokuapp.com/api/users/')
         .then(lotrcharacters => {
-            setCharacters(lotrcharacters)
+            console.log(lotrcharacters)
+            setCharacters(lotrcharacters.data)
         })
         .catch(err => {
-            return err
+            console.log(err)
         })
     }, [])
 
+    if (!characters) {
+        return <h1>Loading...</h1>
+    }
 
     return (
 
         <div>{characters.map(character => {
             return (
-                <p>{character.name}</p>
+                <p key={character.id}>{character.name}</p>
             ) 
         })}</div>
 
